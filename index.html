@@ -185,43 +185,30 @@
     </div>
 
     <div class="search-popup">
-      <div class="search-popup-container">
-
-        <form role="search" method="get" class="search-form" action="">
-          <input type="search" id="search-form" class="search-field" placeholder="Nhập từ khoá và nhấn Enter" value=""
-            name="s" />
-          <button type="submit" class="search-submit"><svg class="search">
-              <use xlink:href="#search"></use>
-            </svg></button>
+      <!-- Bộ lọc nâng cao -->
+      <div class="container mb-4">
+        <form id="advanced-filter" class="row g-3">
+          <div class="col-md-4">
+            <input type="text" class="form-control" id="searchKeyword" placeholder="Tìm kiếm sách...">
+          </div>
+          <div class="col-md-4">
+            <select id="genreFilter" class="form-select">
+              <option value="">Tất cả thể loại</option>
+              <option value="Romance">Lãng mạn</option>
+              <option value="Thriller">Kịch tính</option>
+              <option value="Sci-fi">Khoa học viễn tưởng</option>
+              <option value="Cooking">Nấu ăn</option>
+              <option value="Health">Sức khoẻ</option>
+              <option value="Lifestyle">Phong cách sống</option>
+              <option value="Fiction">Tiểu thuyết</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <button type="submit" class="btn btn-primary w-100">Lọc kết quả</button>
+          </div>
         </form>
-
-        <h5 class="cat-list-title">Danh mục nổi bật</h5>
-
-        <ul class="cat-list">
-          <li class="cat-list-item">
-            <a href="#" title="Romance">Lãng mạn</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Thriller">Kịch tính</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Sci-fi">Khoa học viễn tưởng</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Cooking">Nấu ăn</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Health">Sức khoẻ</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Lifestyle">Phong cách sống</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Fiction">Tiểu thuyết</a>
-          </li>
-        </ul>
-
       </div>
+
     </div>
 
     <header id="header" class="site-header">
@@ -1560,6 +1547,31 @@
         </div>
       </div>
     </div>
+    <!-- script LỌC MỚI -->
+     <script>
+      document.getElementById('advanced-filter').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const keyword = document.getElementById('searchKeyword').value.toLowerCase();
+        const genre = document.getElementById('genreFilter').value;
+
+        const cards = document.querySelectorAll('.swiper-slide');
+
+        cards.forEach(card => {
+          const title = card.querySelector('h6 a')?.innerText.toLowerCase() || '';
+          const category = card.getAttribute('data-genre') || '';
+
+          const matchKeyword = title.includes(keyword);
+          const matchGenre = genre === '' || category === genre;
+
+          if (matchKeyword && matchGenre) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    </script>
 
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
