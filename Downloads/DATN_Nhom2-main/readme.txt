@@ -60,5 +60,6 @@ git merge main
 
 ## Liên Hệ
 
-Mọi thắc mắc vui lòng liên hệ Leader
+Mọi thắc mắc vui lòng liên hệ Leader: Bảo
+
 hihihhihihi tui xong rồi nha
